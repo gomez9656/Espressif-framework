@@ -130,6 +130,7 @@ static int do_i2cdetect_cmd(int argc, char **argv)
             i2c_cmd_link_delete(cmd);
             if (ret == ESP_OK) {
                 printf("%02x ", address);
+                printf("%d %d", i, j);
             } else if (ret == ESP_ERR_TIMEOUT) {
                 printf("UU ");
             } else {

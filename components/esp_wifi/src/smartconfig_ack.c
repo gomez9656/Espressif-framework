@@ -120,12 +120,22 @@ static void sc_ack_send_task(void *pvParameters)
                 ESP_LOGE(TAG,  "Creat udp socket failed");
                 goto _end;
             }
-
+            /*this is how it comes from github
             if (setsockopt(send_sock, SOL_SOCKET, SO_BROADCAST | SO_REUSEADDR, &optval, sizeof(int)) < 0) {
                 ESP_LOGE(TAG,  "setsockopt failed");
                 goto _end;
             }
-
+            */
+            /* this is added*/
+            if (setsockopt(send_sock, SOL_SOCKET, SO_BROADCAST, &optval, sizeof(int)) < 0) {
+                ESP_LOGE(TAG,  "setsockopt SO_BROADCAST failed");
+                goto _end;
+            }
+            if (setsockopt(send_sock, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(int)) < 0) {
+                ESP_LOGE(TAG,  "setsockopt SO_REUSEADDR failed");
+                goto _end;
+            }
+            /*until here*/
             if (ack->type == SC_TYPE_AIRKISS) {
                 char data = 0;
                 struct sockaddr_in local_addr, from;

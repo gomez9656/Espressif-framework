@@ -190,6 +190,7 @@ void app_main(void)
     }
 
     while (1) {
+        /*
         printf("1. LEDC fade up to duty = %d\n", LEDC_TEST_DUTY);
         for (ch = 0; ch < LEDC_TEST_CH_NUM; ch++) {
             ledc_set_fade_with_time(ledc_channel[ch].speed_mode,
@@ -213,10 +214,60 @@ void app_main(void)
         for (int i = 0; i < LEDC_TEST_CH_NUM; i++) {
             xSemaphoreTake(counting_sem, portMAX_DELAY);
         }
+        */
+
+        printf("4. LEDC set duty = 0 without fade\n");
+        for (ch = 0; ch < LEDC_TEST_CH_NUM; ch++) {
+            ledc_set_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel, 8191);
+            ledc_update_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel);
+        }
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+        printf("4. LEDC set duty = 0 without fade\n");
+        for (ch = 0; ch < LEDC_TEST_CH_NUM; ch++) {
+            ledc_set_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel, 7191);
+            ledc_update_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel);
+        }
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+        printf("4. LEDC set duty = 0 without fade\n");
+        for (ch = 0; ch < LEDC_TEST_CH_NUM; ch++) {
+            ledc_set_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel, 6143);
+            ledc_update_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel);
+        }
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+        printf("4. LEDC set duty = 0 without fade\n");
+        for (ch = 0; ch < LEDC_TEST_CH_NUM; ch++) {
+            ledc_set_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel, 5191);
+            ledc_update_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel);
+        }
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
 
         printf("3. LEDC set duty = %d without fade\n", LEDC_TEST_DUTY);
         for (ch = 0; ch < LEDC_TEST_CH_NUM; ch++) {
             ledc_set_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel, LEDC_TEST_DUTY);
+            ledc_update_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel);
+        }
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+        printf("4. LEDC set duty = 0 without fade\n");
+        for (ch = 0; ch < LEDC_TEST_CH_NUM; ch++) {
+            ledc_set_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel, 3191);
+            ledc_update_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel);
+        }
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+        printf("4. LEDC set duty = 0 without fade\n");
+        for (ch = 0; ch < LEDC_TEST_CH_NUM; ch++) {
+            ledc_set_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel, 2048);
+            ledc_update_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel);
+        }
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+        printf("4. LEDC set duty = 0 without fade\n");
+        for (ch = 0; ch < LEDC_TEST_CH_NUM; ch++) {
+            ledc_set_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel, 1191);
             ledc_update_duty(ledc_channel[ch].speed_mode, ledc_channel[ch].channel);
         }
         vTaskDelay(1000 / portTICK_PERIOD_MS);

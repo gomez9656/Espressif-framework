@@ -28,6 +28,8 @@
 #include "lwip/err.h"
 #include "lwip/sys.h"
 
+#include "../../../examples/Test-EvansWerks/advanced_ota_and_smartconfig/main/smartconfig.h"
+
 #ifdef CONFIG_EXAMPLE_CONNECT_IPV6
 #define MAX_IP6_ADDRS_PER_NETIF (5)
 #define NR_OF_IP_ADDRESSES_TO_WAIT_FOR (s_active_interfaces*2)
@@ -293,16 +295,19 @@ static esp_netif_t *wifi_start(void)
 #endif
 
     ESP_ERROR_CHECK(esp_wifi_set_storage(WIFI_STORAGE_RAM));
+    
     wifi_config_t wifi_config = {
         .sta = {
-            .ssid = CONFIG_EXAMPLE_WIFI_SSID,
-            .password = CONFIG_EXAMPLE_WIFI_PASSWORD,
+            //.ssid = CONFIG_EXAMPLE_WIFI_SSID,
+            //.password = CONFIG_EXAMPLE_WIFI_PASSWORD,
             .scan_method = EXAMPLE_WIFI_SCAN_METHOD,
             .sort_method = EXAMPLE_WIFI_CONNECT_AP_SORT_METHOD,
             .threshold.rssi = CONFIG_EXAMPLE_WIFI_SCAN_RSSI_THRESHOLD,
             .threshold.authmode = EXAMPLE_WIFI_SCAN_AUTH_MODE_THRESHOLD,
         },
     };
+    memcpy(wifi_config.sta.ssid, SC_ssid, sizeof(SC_ssid));
+    memcpy(wifi_config.sta.password, SC_pass, sizeof(SC_pass));
     ESP_LOGI(TAG, "Connecting to %s...", wifi_config.sta.ssid);
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));

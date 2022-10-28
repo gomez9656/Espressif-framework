@@ -892,10 +892,35 @@ static void UART_ISR_ATTR uart_rx_intr_handler_default(void *param)
                     UART_EXIT_CRITICAL_ISR(&(uart_context[uart_num].spinlock));
                 }
             }
-        } else if ((uart_intr_status & UART_INTR_RXFIFO_TOUT)
+        }
+        //care this is one "solution"
+        /*
+        else if(uart_intr_status & UART_INTR_BRK_DET) {
+            uart_hal_clr_intsts_mask(&(uart_context[uart_num].hal), UART_INTR_BRK_DET);
+            rx_fifo_len = uart_hal_get_rxfifo_len(&(uart_context[uart_num].hal));
+            uart_hal_read_rxfifo(&(uart_context[uart_num].hal), p_uart->rx_data_buf, &rx_fifo_len);
+            uart_event.type = UART_BREAK;
+            uart_event.size = rx_fifo_len;
+        }
+        */
+        //care
+
+        //this is the normal one
+        
+        else if ((uart_intr_status & UART_INTR_RXFIFO_TOUT)
                    || (uart_intr_status & UART_INTR_RXFIFO_FULL)
                    || (uart_intr_status & UART_INTR_CMD_CHAR_DET)
                   ) {
+        
+        //normal one
+        //care this is a "solution"
+        /*
+        else if ( (uart_intr_status & (UART_INTR_RXFIFO_TOUT | UART_INTR_RXFIFO_FULL | UART_INTR_CMD_CHAR_DET ) )
+                    || ( (uart_intr_status & UART_INTR_BRK_DET) 
+                    && (uart_ll_get_rxfifo_len(uart_context[uart_num].hal.dev) > 0) ) ){
+        
+        //Care this is a "solutuon"
+        */
             if (pat_flg == 1) {
                 uart_intr_status |= UART_INTR_CMD_CHAR_DET;
                 pat_flg = 0;

@@ -47,7 +47,8 @@
 #define PIN_NUM_CLK  36
 #define PIN_NUM_CS   34
 
-#define PIN_NUM_DC   4
+#define     gpio_set_direction(PIN_NUM_DC, GPIO_MODE_OUTPUT);
+    gpio_set_direction(PIN_NUM_RST, GPIO_MODE_OUTPUT);   4
 #define PIN_NUM_RST  5
 #define PIN_NUM_BCKL 6
 #elif defined CONFIG_IDF_TARGET_ESP32C3

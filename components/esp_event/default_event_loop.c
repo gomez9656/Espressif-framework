@@ -15,6 +15,7 @@
 #include "esp_event.h"
 #include "esp_event_internal.h"
 #include "esp_task.h"
+#include "esp_log.h"
 
 /* ------------------------- Static Variables ------------------------------- */
 
@@ -104,7 +105,7 @@ esp_err_t esp_event_loop_create_default(void)
     if (s_default_loop) {
         return ESP_ERR_INVALID_STATE;
     }
-
+    ESP_LOGI("loop", "HELLO 2");
     esp_event_loop_args_t loop_args = {
         .queue_size = CONFIG_ESP_SYSTEM_EVENT_QUEUE_SIZE,
         .task_name = "sys_evt",
@@ -119,7 +120,7 @@ esp_err_t esp_event_loop_create_default(void)
     if (err != ESP_OK) {
         return err;
     }
-
+    ESP_LOGI("loop", "HELLO 3");
     return ESP_OK;
 }
 
